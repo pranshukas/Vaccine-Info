@@ -33,7 +33,7 @@ body {
 
 .feature {
     padding: 5% 10%;
-    height: 400px;
+    height: 650px;
     background-color: #faf2da;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -43,6 +43,15 @@ body {
     padding-top: 3%;
 }
 
+.spacing-1{
+    margin-top: 42px;
+}
+.spacing-2{
+  margin-top: 15px;
+}
+.spacing-3{
+  margin-top: 31px;
+}
 /* Guidelines Section */
 
 .guidelines {
@@ -91,7 +100,7 @@ body {
 .flexbox{
     background-color: #FFFDD0;
     padding: 1% 10%;
-    
+
 }
 
 .flex-container {
@@ -101,12 +110,12 @@ body {
 .flex-child {
     flex: 1;
     height: auto;
-}  
+}
 
 .flex-child:nth-child(1) {
     background-color: orange;
     margin-right: 20px;
-} 
+}
 
 .flex-child2 {
   background-color: lightgreen;
