@@ -5,3 +5,9 @@ Till now Home and Contact Page (HTML,CSS Portion is Completed), now left for add
 ## Tools Used 
 
  HTML, CSS, Bootstrap as Framework, Javascript for Animation.
+
+ ## Usage 
+
+ Run npm install to install the required npm modules 
+ Start http://localhost:3000/ to view the Website. 
+
