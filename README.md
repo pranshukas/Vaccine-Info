@@ -24,6 +24,7 @@ We have used node-cron for scheduling tasks and node-mailer for Sending Emails. 
 
 ## Deployment 
 
+<img src="https://img.shields.io/website?url=https%3A%2F%2Fvaccine-info-2021.herokuapp.com%2F&logo=github&style=flat-square" /> 
 Deployed Website (on Heroku): https://vaccine-info-2021.herokuapp.com/
 
 <h4>Succesful Email Sent!</h4>
