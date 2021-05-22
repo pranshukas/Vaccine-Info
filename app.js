@@ -7,10 +7,13 @@ const moment = require('moment');
 const path = require('path');
 const mongodb = require('mongodb');
 const https = require('https');
-var dbConn = mongodb.MongoClient.connect('mongodb+srv://admin:vaccine-info-13@cluster0.vcknz.mongodb.net/');
+var dbConn = mongodb.MongoClient.connect('<MongoDB Path>');    //Add MongoDB Path by connecting it to MongoAtlas
 require('dotenv').config();
 
+//Getting Data from dotenv file
+
 const password = process.env.password;
+const my-email-id: = process.env.my-email-id;
 
 let userData;
 let deletedIds=[];
@@ -18,37 +21,52 @@ const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Displaying Home Page 
+
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/public/html/home.html");
 });
+
+//Displaying Contact Us Page
 
 app.get("/contactus", function (req, res) {
     res.sendFile(__dirname + "/public/html/contact-me.html");
 });
 
+//Displaying Vaccine Notify Page
 
 app.get("/notify", function (req, res) {
     res.sendFile(__dirname + "/public/html/vaccinenotify.html");
 })
 
+// Displaying Vaccine Info Page 
+
 app.get("/vaccine-info", function (req, res) {
     res.sendFile(__dirname + "/public/html/vaccine_info.html");
 })
+
+//Unsubscribe Page 
 
 app.get("/unsubscribe",function(req,res){
   res.sendFile(__dirname + "/public/html/unsubscribe.html");
 })
 
+//Sucessful Registration Page
+
 app.post("/success",function(req,res){
   res.redirect("/");
 })
+
+// Redirecting In case of Failure in Registration 
 
 app.post("/failure",function(req,res){
   res.redirect("/notify");
 })
 
+// Unsubscribing User 
+
 app.post('/unsubscribed-successfully',function(req,res){
-    mongodb.MongoClient.connect('mongodb+srv://admin:vaccine-info-13@cluster0.vcknz.mongodb.net/',(err,client) => {
+    mongodb.MongoClient.connect('<MongoDB Path>',(err,client) => {    //Add The MongoDB Path By Connecting it to Mongo Atlas
           var db = client.db('test');
           delete req.body._id; // for safety reasons
           db.collection('data').deleteMany({
@@ -59,9 +77,11 @@ app.post('/unsubscribed-successfully',function(req,res){
     console.log(typeof(req.body.email));
     res.sendFile(__dirname + "/public/html/unsubscribed-successfully.html");
 });
+
+
 app.post('/post-feedback', function (req, res) {
 
-    mongodb.MongoClient.connect('mongodb+srv://admin:vaccine-info-13@cluster0.vcknz.mongodb.net/', (err, client) => {
+    mongodb.MongoClient.connect('<MongoDB Path>', (err, client) => {    //Add The MongoDB Path By Connecting it to Mongo Atlas
         var db = client.db('test');
         delete req.body._id; // for safety reasons
         db.collection('data').insertOne(req.body);
@@ -72,9 +92,11 @@ app.post('/post-feedback', function (req, res) {
     res.sendFile(__dirname + "/public/html/successfulRegistration.html");
 });
 
+//Running Node Cron for Scheduling Tasks 
+
 async function main() {
     try {
-        cron.schedule('* * * * *', async () => {
+        cron.schedule('* * * * *', async () => {     //Update Cron According to Use Currently Cron is running checkAvailability() every minute 
             checkAvailability();
         });
     } catch (e) {
@@ -84,7 +106,7 @@ async function main() {
 }
 
 
-
+//Check Availability Function for Checking the Availability for Available Slots
 
 async function checkAvailability() {
 
@@ -106,6 +128,8 @@ async function checkAvailability() {
 
 }
 
+//Fetching Dates using moment package
+
 async function fetchNext1Days() {
     let dates = [];
     let today = moment();
@@ -117,8 +141,10 @@ async function fetchNext1Days() {
     return dates;
 }
 
+// Getting User Data 
+
 async function getUserData() {
-    mongodb.MongoClient.connect('mongodb+srv://admin:vaccine-info-13@cluster0.vcknz.mongodb.net/', (err, client) => {
+    mongodb.MongoClient.connect('<MongoDB Path>', (err, client) => {    //Add The MongoDB Path By Connecting it to Mongo Atlas
         var db = client.db('test');
         db.collection('data').find({}).toArray().then(function (feedbacks) {
             userData = (feedbacks);
@@ -129,6 +155,8 @@ async function getUserData() {
     });
   //  return userData;
 }
+
+//Getting the Slots for Particular Date 
 
 function getSlotsForDate(DATE, element) {
 
@@ -174,7 +202,7 @@ function getSlotsForDate(DATE, element) {
             console.log("Vaccination Centres Found");
             notifyMe(validSlots, element.email);
 
-            // mongodb.MongoClient.connect('mongodb+srv://admin:vaccine-info-13@cluster0.9zdmq.mongodb.net/', (err, client) => {
+            // mongodb.MongoClient.connect('<MongoDB Path>', (err, client) => {   //Add The MongoDB Path By Connecting it to Mongo Atlas
             //     var db = client.db('test');
             //     db.collection('data').deleteOne({
             //       "_id" : element._id
@@ -185,6 +213,8 @@ function getSlotsForDate(DATE, element) {
     });
     // return ok;
 }
+
+// Sending Emails 
 
 async function notifyMe(validSlots, email) {
     let slotDetails = JSON.stringify(validSlots, null, '\t');
@@ -232,13 +262,13 @@ html+=`<a href="https://vaccine-info-2021.herokuapp.com/unsubscribe">Click here 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'vaccineinfo2021@gmail.com',
+            user: my-email-id,
             pass: password
         }
     });
 
     var mailOptions = {
-        from: 'vaccineinfo2021@gmail.com',
+        from: my-email-id,
         to: email,
         subject: 'Vaccine Available-Hurry Up! Book Fast',
         html: html
@@ -261,6 +291,7 @@ html+=`<a href="https://vaccine-info-2021.herokuapp.com/unsubscribe">Click here 
     // console.log(slotDetails);
 };
 
+//Starting home page on PORT 3000 
 
 const PORT = process.env.PORT || 3000;
 
