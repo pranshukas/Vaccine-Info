@@ -4,10 +4,19 @@ Vaccine-Info is a maintained Project made by **[Pranshu Kashyap](https://github.
 
 We have used node-cron for scheduling tasks and node-mailer for Sending Emails. MongoDB was used to Store User Data. Cowin API's are used for fetching real time Vaccine slots. Chat.js was used for plotting Doughnut Pie Charts and NewsAPIs was used for getting News Headlines related to Covid. 
 
+## Contributors 
+
+<a href="https://github.com/pranshukas/vaccine-info/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=pranshukas/vaccine-info" />
+</a>
+
+
+
+
 ## Table of Content 
 
 * [Deployment](#deployment)
-* [Tools and Technologies Used](#built-with)
+* [Tools and Technologies Used](#tools-and-technologies-used)
 * [Usage](#usage)
 * [Installation](#installation)
 * [Contribution](#contribution)
@@ -25,7 +34,7 @@ Deployed Website (on Heroku): https://vaccine-info-2021.herokuapp.com/
 
 <img src="public/assets/images/notify.png" alt="noftifer" width="700" height="800">
 
-## Built-With  
+## Tools and Technologies Used
 
 #### Front-End <br/><br/>
 
@@ -46,7 +55,7 @@ Deployed Website (on Heroku): https://vaccine-info-2021.herokuapp.com/
     <img src="public/assets/Tool%20and%20Technologies%20Used/mongodb.svg" alt="mongodb" width="100" height="100">&nbsp;&nbsp;&nbsp;
  </p>
  
- #### Deployment and Miscellaneousv Tools Used <br/><br/>
+ #### Deployment and Miscellaneous Tools Used <br/><br/>
  
  <p>
     <img src="public/assets/Tool%20and%20Technologies%20Used/heroku.svg" alt="heroku" width="100" height="100">&nbsp;&nbsp;&nbsp;
